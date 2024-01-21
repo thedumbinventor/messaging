@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:messaging/screens/Dashboard.dart';
+import 'package:video_player/video_player.dart';
+import 'package:chewie/chewie.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -15,7 +18,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 2), () {
+    Timer(Duration(seconds: 1), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => LoginAction()),
@@ -86,10 +89,10 @@ class _LoginActionState extends State<LoginAction> {
   void _showToast(String message) {
    Fluttertoast.showToast(
       msg: message,
-      toastLength: Toast.LENGTH_LONG,
+      toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.TOP,
       timeInSecForIosWeb: 1,
-      backgroundColor: Colors.grey,
+      backgroundColor: Colors.pink,
       textColor: Colors.white,
       fontSize: 26.0,
     );
@@ -103,6 +106,12 @@ class _LoginActionState extends State<LoginAction> {
       _showToast("Please fill in all fields");
       return;
     }
+    else {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (context) => Dashboard()),
+      );
+    }
 
     // Add your login logic here
   }
@@ -110,7 +119,7 @@ class _LoginActionState extends State<LoginAction> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black54,
+      backgroundColor: Colors.black,
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.fromLTRB(20, 100, 20, 20),
@@ -123,7 +132,8 @@ class _LoginActionState extends State<LoginAction> {
                   width: 200,
                   child: Image.asset('assets/image.png'),
                 ),
-                Text(
+
+                const Text(
                   'Connect friends easily & quickly',
                   style: TextStyle(
                     fontSize: 46,
@@ -160,6 +170,7 @@ class _LoginActionState extends State<LoginAction> {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     child: TextField(
+                      style: TextStyle(color: Colors.white),
                       controller: _passwordController,
                       obscureText: !_isPasswordVisible,
                       decoration: InputDecoration(
@@ -190,7 +201,7 @@ class _LoginActionState extends State<LoginAction> {
                 Container(
                   width: 130,
                   child: ElevatedButton(
-                    onPressed: _handleLogin,
+                    onPressed: (_handleLogin),
                     style: ElevatedButton.styleFrom(
                       primary: Colors.redAccent,
                       shape: RoundedRectangleBorder(
